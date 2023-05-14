@@ -1,12 +1,10 @@
-import cv2, time
 import ctypes
+import cv2, time
 from ultralytics import YOLO
 from ultralytics.yolo.engine.results import Results
 from ultralytics.yolo.utils.plotting import Annotator
 
 model = YOLO('yolov8n-pose.pt')
-
-
 
 def start_find_people():
     cap = cv2.VideoCapture(0)
@@ -17,18 +15,18 @@ def start_find_people():
         raise IOError("Cannot open webcam")
     iteration = 5
     while iteration > 0:
-        time.sleep(1)
-        iteration = iteration - 1
-        print('iteration: ', iteration)
+        time.sleep(0.5)
         ret, frame = cap.read()
         frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
-        res = model(frame)  
+        res:Results = model(frame) 
         keypoints = res[0].keypoints.squeeze().tolist()
         ann = Annotator(frame)
         right_leck = []
         left_leck = []
         max_h = 720
         #TODO fix this
+        iteration = iteration - 1
+        print('iteration: ', iteration)
         if len(keypoints) == 17:
             for i, kp in enumerate(keypoints):
                 if kp[-1] >0.5:
