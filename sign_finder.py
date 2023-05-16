@@ -26,10 +26,10 @@ def find_sign(in_data:list[ResultShema]):
             cv2.imwrite('res.jpg', croped_frame)
             #cv2.imshow('RES', croped_frame)
 
-#frame = cv2.imread('t6.PNG')
-#results = model.predict(frame, save=False)
-#results_to_save = results[0].boxes.cpu().numpy()
-#if results[0].boxes:
-#    croped_frame = _crop_frame_by_boxes(frame, results_to_save)
-#    print("recognized_text: ", recognise_text.recognize_at_frame(croped_frame))
-#    cv2.imwrite('res.jpg', croped_frame)
+frame = cv2.imread('t2.PNG')
+results = model.predict(frame, save=False)
+results_to_save = results[0].boxes.cpu().numpy()
+if results[0].boxes:
+    croped_frame = _crop_frame_by_boxes(frame, results_to_save)
+    print("recognized_text: ", recognise_text.recognize_at_frame(croped_frame))
+    cv2.imwrite('res.jpg', croped_frame)

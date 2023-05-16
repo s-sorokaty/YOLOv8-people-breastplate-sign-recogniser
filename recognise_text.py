@@ -10,4 +10,4 @@ def recognize_at_frame(frame:np.ndarray) -> str:
     cv2.imwrite('test1234.jpg', resized_frame)
     return pytesseract.image_to_string(resized_frame, lang= 'rus')
 
-#print(recognize_at_frame(cv2.imread("t7.PNG")))
+print(recognize_at_frame(cv2.imread("result_haaf.jpg")))
