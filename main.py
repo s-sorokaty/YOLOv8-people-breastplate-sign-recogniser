@@ -1,5 +1,6 @@
 import time, ctypes
 import people_finder
+import sign_finder
 
 man_detection_count = 0
 iteration_count = 5
@@ -11,6 +12,7 @@ for res in result:
     if res.is_man_exist:
         man_detection_count += 1
         
-print(man_detection_count)
+print("man in frame detection count: ", man_detection_count, '\nman target detection count: ', target_detection_count)
 if not man_detection_count >= target_detection_count: ctypes.windll.user32.LockWorkStation()
+sign_finder.find_sign(result)
 time.sleep(1)

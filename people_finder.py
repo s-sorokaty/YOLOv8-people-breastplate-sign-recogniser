@@ -6,20 +6,13 @@ from ultralytics import YOLO
 from ultralytics.yolo.engine.results import Results
 from ultralytics.yolo.utils.plotting import Annotator
 
+from models import ResultShema
+
 model = YOLO('yolov8n.yaml')
 model = YOLO('yolov8n-pose.pt')
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\User\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
-class ResultShema():
-    def __init__(self, is_man_exist, frame, keypoints):
-        self.is_man_exist = is_man_exist
-        self.frame = frame
-        self.keypoints = keypoints
 
-    is_man_exist:bool=False
-    frame:np.ndarray
-    keypoints:list=[]
-    
 def _clear_keypoints(keypoints:list):
     new_keypoints = []
     for kp in enumerate(keypoints):
@@ -56,7 +49,7 @@ def start_find_people(iteration:int, on_unrecognize_callback:Callable) -> list[R
         raise IOError("Cannot open webcam")
     while iteration > 0:
         ret, frame = cap.read()
-        frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+        #frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
         res = predict_by_yolo(frame)
         keypoints:list = res[0].keypoints.squeeze().tolist()
         ann = Annotator(frame)
@@ -68,11 +61,11 @@ def start_find_people(iteration:int, on_unrecognize_callback:Callable) -> list[R
             new_frame = _clear_frame_by_keypoints(ann, keypoints)
             try:
                 result.append(ResultShema(True, new_frame, keypoints))
-                cv2.imshow('Result', new_frame)
+                #cv2.imshow('Result', new_frame)
+                print(new_frame.shape)
                 print(pytesseract.image_to_string(frame, lang= 'rus'))
             except KeyError:
                 result.append(ResultShema(False, ann.result(), []))
-            
         else:
             result.append(ResultShema(False, ann.result(), []))
             on_unrecognize_callback()
