@@ -37,9 +37,10 @@ def _clear_frame_by_keypoints(ann:Annotator, keypoints:list) -> np.ndarray:
     return ann.result()[int(max_h)::,int(left_leck[0])-50:int(right_leck[0])+50,:]
 
 def predict_by_yolo(frame:np.ndarray) -> Results:
-    return model(frame)
+    return model.predict(frame, conf=0.5)
 
 def start_find_people(iteration:int, on_unrecognize_callback:Callable) -> list[ResultShema]:
+    men_in_frame = 1
     result:list[ResultShema] = []
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
@@ -60,18 +61,30 @@ def start_find_people(iteration:int, on_unrecognize_callback:Callable) -> list[R
         if len(keypoints) == 17:
             new_frame = _clear_frame_by_keypoints(ann, keypoints)
             try:
+                men_in_frame = 1
                 result.append(ResultShema(True, new_frame, keypoints))
                 #cv2.imshow('Result', new_frame)
                 print(new_frame.shape)
-                print(pytesseract.image_to_string(frame, lang= 'rus'))
             except KeyError:
                 result.append(ResultShema(False, ann.result(), []))
+        elif len(keypoints) > 1 and len(keypoints)<5:
+            men_in_frame = len(keypoints)
+            for keypoint in keypoints:
+                new_frame = _clear_frame_by_keypoints(ann, keypoint)
+                try:
+                    result.append(ResultShema(True, new_frame, keypoint))
+                    #cv2.imshow('Result', new_frame)
+                    print(new_frame.shape)
+                except KeyError:
+                    result.append(ResultShema(False, ann.result(), []))
         else:
+            men_in_frame = 0
             result.append(ResultShema(False, ann.result(), []))
             on_unrecognize_callback()
+            
         c = cv2.waitKey(1)
         if c == 27:
             break
     cap.release()
     cv2.destroyAllWindows()
-    return result
+    return result, men_in_frame
