@@ -10,7 +10,7 @@ from models import ResultShema
 
 model = YOLO('yolov8n.yaml')
 model = YOLO('yolov8n-pose.pt')
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\User\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 
 def _clear_keypoints(keypoints:list):

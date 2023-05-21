@@ -1,4 +1,5 @@
 import cv2
+import difflib
 import numpy as np
 import recognise_text
 from ultralytics import YOLO
@@ -10,11 +11,14 @@ model = YOLO('sign_detection.pt')
 
 def _crop_frame_by_boxes(frame:np.ndarray, boxes:list) -> np.ndarray:
     boxes = boxes[0].boxes[0]
-    print('HERE', [int(boxes[0]),int(boxes[2]),int(boxes[1]),int(boxes[3])], boxes[-1])
-    print('frame info: ', frame.shape)
     frame = frame[int(boxes[1]):int(boxes[3]), int(boxes[0]):int(boxes[2]),:]
-    print('frame info: ', frame.shape)
     return frame
+
+def similarity(s1, s2):
+    normalized1 = s1.lower()
+    normalized2 = s2.lower()
+    matcher = difflib.SequenceMatcher(None, normalized1, normalized2)
+    return matcher.ratio()
 
 def find_sign(in_data:list[ResultShema]):
     for data in in_data:
@@ -23,5 +27,7 @@ def find_sign(in_data:list[ResultShema]):
         if results[0].boxes:
             croped_frame = _crop_frame_by_boxes(data.frame, results_to_save)
             croped_frame = rotate_image(croped_frame)
-            print("recognized_text: ", recognise_text.recognize_at_frame(croped_frame))
+            recognized_string =  recognise_text.recognize_at_frame(croped_frame)
+            print("recognized_text: ", recognized_string)
+            print("similar %: ", similarity('ФАМИЛИЯ И.О.', recognized_string))
             cv2.imwrite('res.jpg', croped_frame)
