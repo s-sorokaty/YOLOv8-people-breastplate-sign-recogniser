@@ -54,7 +54,7 @@ def rotate_image(image:np.ndarray) -> np.ndarray:
 
             # Вывод изображения с обнаруженными параллельными линиями и поворотом
             cv2.imwrite('result_haaf.jpg', rotated_image)
-            return image        
+            return rotated_image        
         else:
             print("Не найдено параллельных линий.")
     except:

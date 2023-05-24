@@ -4,7 +4,7 @@ import numpy as np
 import recognise_text
 from ultralytics import YOLO
 from ultralytics.yolo.engine.results import Results
-from models import ResultShema
+from models import ResultSchema
 from haaf_image_rotator import rotate_image
 # Load a model
 model = YOLO('sign_detection.pt')
@@ -20,7 +20,7 @@ def similarity(s1, s2):
     matcher = difflib.SequenceMatcher(None, normalized1, normalized2)
     return matcher.ratio()
 
-def find_sign(in_data:list[ResultShema]):
+def find_sign(in_data:list[ResultSchema]):
     for data in in_data:
         results = model.predict(data.frame, conf=0.5, save=False)
         results_to_save = results[0].boxes.cpu().numpy()

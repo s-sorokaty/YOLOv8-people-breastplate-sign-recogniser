@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class ResultShema():
+class ResultSchema():
     def __init__(self, is_man_exist, frame, keypoints):
         self.is_man_exist = is_man_exist
         self.frame = frame
