@@ -1,11 +1,10 @@
 import cv2
 import pytesseract
 import numpy as np
-from typing import Callable
+from typing import Callable, Union
 from ultralytics import YOLO
 from ultralytics.yolo.engine.results import Results
 from ultralytics.yolo.utils.plotting import Annotator
-
 from models import ResultSchema
 
 # Инициализация модели YOLO
@@ -75,7 +74,7 @@ def predict_by_yolo(frame: np.ndarray) -> Results:
     return model.predict(frame, conf=0.5)
 
 
-def start_find_people(iteration: int, on_unrecognize_callback: Callable) -> list[ResultSchema]:
+def start_find_people(iteration: int, on_unrecognize_callback: Callable) -> Union[list[ResultSchema], int]:
     """
     Запуск поиска людей на кадрах.
 

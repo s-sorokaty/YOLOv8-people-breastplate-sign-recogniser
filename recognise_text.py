@@ -1,10 +1,11 @@
 import pytesseract
 import numpy as np
 import cv2
-import difflib
 
-#C:\Program Files
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+#C:\Program Files\Tesseract-OCR
+#C:\Users\User\AppData\Local\Programs\Tesseract-OCR
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Users\User\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'
 
 def recognize_at_frame(frame:np.ndarray) -> str:
     #resized_frame = cv2.resize(frame, None, fx = 2, fy = 2, interpolation = cv2.INTER_CUBIC) 

@@ -6,6 +6,7 @@ class MenStatus(Enum):
     new_in_frame:str = "new_in_frame"
     gone:str = "gone"
 
+# Модель передаваемых данных между модулями
 class ResultSchema():
     def __init__(self, is_man_exist, frame, keypoints):
         self.is_man_exist = is_man_exist
@@ -15,4 +16,4 @@ class ResultSchema():
     is_man_exist:bool=False
     frame:np.ndarray
     keypoints:list=[]
-    similiar_to_exist_name:str = ''
+    similar_to_exist_name:str = ''
