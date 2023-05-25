@@ -1,5 +1,10 @@
 import numpy as np
+from enum import Enum
 
+class MenStatus(Enum):
+    steel_in_frame:str = "steel_in_frame"
+    new_in_frame:str = "new_in_frame"
+    gone:str = "gone"
 
 class ResultSchema():
     def __init__(self, is_man_exist, frame, keypoints):
