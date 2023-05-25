@@ -33,4 +33,4 @@ def find_sign(in_data:list[ResultSchema], names:list[str]):
             for name in names: 
                 print("similar %: ", similarity(name, recognized_string))
                 if similarity(name, recognized_string) > 0.7:
-                    data.similiar_to_exist_name = name
+                    data.similar_to_exist_name = name
