@@ -10,3 +10,4 @@ class ResultSchema():
     is_man_exist:bool=False
     frame:np.ndarray
     keypoints:list=[]
+    similiar_to_exist_name:str = ''

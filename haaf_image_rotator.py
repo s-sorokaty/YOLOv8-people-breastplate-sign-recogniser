@@ -31,8 +31,6 @@ def rotate_image(image:np.ndarray) -> np.ndarray:
         if count > 0:
             average_angle /= count 
             average_angle = -( 90 - average_angle)
-            print("Усредненный угол параллельных линий: ", average_angle)
-
             # Визуализация параллельных линий на изображении
             #for line in parallel_lines:
             #    rho, theta = line

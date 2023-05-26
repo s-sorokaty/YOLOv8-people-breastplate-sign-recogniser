@@ -1,0 +1,24 @@
+﻿﻿﻿ITERATION STARTED
+2023-05-26 men False undefined
+ITERATION STOPPED
+﻿ITERATION STARTED
+2023-05-26 men True Фамилия И.О. new_in_frame
+ITERATION STOPPED
+﻿ITERATION STARTED
+2023-05-26 men True Фамилия И.О. gone
+ITERATION STOPPED
+﻿ITERATION STARTED
+2023-05-26 men True Фамилия И.О. new_in_frame
+ITERATION STOPPED
+﻿ITERATION STARTED
+2023-05-26 men True Фамилия И.О. gone
+ITERATION STOPPED
+﻿ITERATION STARTED
+2023-05-26 men True Фамилия И.О. new_in_frame
+ITERATION STOPPED
+﻿ITERATION STARTED
+2023-05-26 men True Фамилия И.О. steel_in_frame
+ITERATION STOPPED
+﻿ITERATION STARTED
+2023-05-26 men True Фамилия И.О. gone
+ITERATION STOPPED

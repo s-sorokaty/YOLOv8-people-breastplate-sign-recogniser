@@ -1,5 +1,4 @@
 import cv2
-import time
 import pytesseract
 import numpy as np
 from typing import Callable
@@ -110,7 +109,6 @@ def start_find_people(iteration: int, on_unrecognize_callback: Callable) -> list
         if len(keypoints) == 17:
             new_frame = _clear_frame_by_keypoints(ann, keypoints)
             try:
-                men_in_frame = 1
                 result.append(ResultSchema(True, new_frame, keypoints))
                 print(new_frame.shape)
             except KeyError:
@@ -125,8 +123,6 @@ def start_find_people(iteration: int, on_unrecognize_callback: Callable) -> list
                 except KeyError:
                     result.append(ResultSchema(False, ann.result(), []))
         else:
-            men_in_frame = 0
-            result.append(ResultSchema(False, ann.result(), []))
             on_unrecognize_callback()
             
         c = cv2.waitKey(1)

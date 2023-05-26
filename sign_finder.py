@@ -20,7 +20,7 @@ def similarity(s1, s2):
     matcher = difflib.SequenceMatcher(None, normalized1, normalized2)
     return matcher.ratio()
 
-def find_sign(in_data:list[ResultSchema]):
+def find_sign(in_data:list[ResultSchema], names:list[str]):
     for data in in_data:
         results = model.predict(data.frame, conf=0.5, save=False)
         results_to_save = results[0].boxes.cpu().numpy()
@@ -29,5 +29,8 @@ def find_sign(in_data:list[ResultSchema]):
             croped_frame = rotate_image(croped_frame)
             recognized_string =  recognise_text.recognize_at_frame(croped_frame)
             print("recognized_text: ", recognized_string)
-            print("similar %: ", similarity('ФАМИЛИЯ И.О.', recognized_string))
             cv2.imwrite('res.jpg', croped_frame)
+            for name in names: 
+                print("similar %: ", similarity(name, recognized_string))
+                if similarity(name, recognized_string) > 0.7:
+                    data.similiar_to_exist_name = name
